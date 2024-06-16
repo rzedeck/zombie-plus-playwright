@@ -14,3 +14,13 @@ test('Cadastro Válido de de um novo Filme', async ({ page }) => {
 
     await page.toast.containText('Cadastro realizado com sucesso!')
 })
+
+test('Cadastro Inválido de de um novo Filme - Todos os campos obrigatórios em branco', async ({ page }) => {
+    await page.loginPage.visit()
+    await page.loginPage.submitLoginForm('admin@zombieplus.com','pwd123')
+    await page.moviesPage.isLoggedIn()
+
+    await page.moviesPage.openForm()
+    await page.moviesPage.submitForm()
+    await page.moviesPage.alertHaveText(['Por favor, informe o título.','Por favor, informe a sinopse.','Por favor, informe a empresa distribuidora.','Por favor, informe o ano de lançamento.'])
+})
